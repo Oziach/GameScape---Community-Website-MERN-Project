@@ -1,0 +1,32 @@
+.navSmall{
+    height: 1.66em;
+}
+
+.logoSize{
+    height:7.5em;
+    width: 7.5em;
+}
+
+.bgDarkGray{
+    background-color: #1a1a1a;
+}
+
+.bgBlack{
+    background-color: black;
+}
+
+.bgLightGray{
+    background-color: #262626;
+}
+
+.lightGray{
+    color: #999999;
+}
+
+.lightBorder{
+    border: 2px solid #333333;
+}
+
+.smallText{
+    font-size: 0.9em;
+}
