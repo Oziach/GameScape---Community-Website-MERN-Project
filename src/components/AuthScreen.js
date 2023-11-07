@@ -1,6 +1,8 @@
 import { useState, useContext} from "react";
 import AuthScreenContext from "./AuthScreenContext";
 import ClickOutHandler from 'react-clickout-handler';
+import axios from 'axios'
+
 function AuthScreen(){
     
     const [screenType, setScreenType] = useState('login');
@@ -15,19 +17,28 @@ function AuthScreen(){
         setScreenType(authContext.show)
     }
 
+    function register(e) {
+        e.preventDefault();
+        const data = {email,username,password};
+        axios.post('http://localhost:4000/register',data, {withCredentials:true})
+        .then((res)=>{
+            console.log(res);
+        })
+    }
+
     return(
         <div 
             className={"row position-fixed position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center z-3 "+visibleClass} 
             style={{backgroundColor: 'rgba(0,0,0,0.6)'}} //faded background 
         >   
             <ClickOutHandler onClickOut={()=>{authContext.setShow(false)}}>
-                <div className="col-lg-4 col-md-6 col-8 text-light bgBlack border mx-auto text-center">
+                <div className="col-lg-3 col-md-6 col-10 text-light bgBlack border mx-auto text-center p-5 px-4">
                     {screenType === 'login' && (
-                        <h1 className="mt-2">Login</h1>
+                        <h1 className="mt-2 mb-5">Login</h1>
                     )}
 
                     {screenType === 'register' &&(
-                        <h1 className="mt-2">Sign Up</h1>
+                        <h1 className="mt-2 mb-5">Sign Up</h1>
                     )}
 
                     {screenType === 'register' &&(
@@ -63,9 +74,22 @@ function AuthScreen(){
                         />
                     </label>
 
-                    <button className="my-3 btn btn-light w-75 fw-bold mb-5">
-                        {screenType === 'login' ? 'Log In' : 'Sign Up'}
+                    {screenType === 'login' && (
+                    <button 
+                        className="my-3 btn btn-light w-75 fw-bold mb-5">
+                        
+                        Login
                     </button>
+                    )}
+
+                    {screenType === 'register' && (
+                        <button
+                        className="my-3 btn btn-light w-75 fw-bold mb-5"
+                        onClick={e => register(e)}>
+                        Sign Up
+                        </button>
+                    )}
+                    
 
                     {(screenType === 'login') && (
                         <div>
