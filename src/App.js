@@ -11,16 +11,25 @@ import UserContext from './components/UserContext';
 function App() {
 
   const [showAuthScreen, setShowAuthScreen] = useState(false);
-  const [user, setUser] = useState({username: 'ash'});
+  const [user, setUser] = useState({});
+  
   useEffect(()=>{
-    axios.get('http://localhost:4000/user', {withCredentials:true});
+    axios.get('http://localhost:4000/user', {withCredentials:true})
+    .then((response)=>{
+      setUser(response.data)
+    });
   },[])
+
+  function logout(){
+    axios.post('http://localhost:4000/logout',{},{withCredentials:true})
+    .then(()=>setUser({}));
+  }
 
   return (
     <div className='bgLightGray'>
 
       <AuthScreenContext.Provider value={{show:showAuthScreen, setShow: setShowAuthScreen}}>
-        <UserContext.Provider value={user}>
+        <UserContext.Provider value={{...user,logout, setUser}}>
         <Header/>
         <AuthScreen/>
         <CommunityHeader/>
@@ -29,7 +38,7 @@ function App() {
 
         <div className='lightBorder bgDarkGray px-2 text-light rounded-3 m-3 pt-1'>
           <h5 className='lightGray smallText mt-1 mb-1'>Posted by Rube432</h5>
-          <h2 className='mb-2 fs-2'>Test</h2>
+          <h2 className='mb-2 fs-4'>Test</h2>
           <div>
           <p>A ton of textA ton of textA ton of textA ton of textA ton of textA ton 
           A ton of textA ton of textA ton of textA ton of textA ton of textA ton 
@@ -45,7 +54,7 @@ function App() {
 
         <div className='lightBorder bgDarkGray px-2 text-light rounded-3 m-3 pt-1'>
           <h5 className='lightGray smallText mt-1 mb-1'>Posted by Rube432</h5>
-          <h2 className='mb-2 fs-2'>Test</h2>
+          <h2 className='mb-2 fs-4'>Test</h2>
           <div>
           <p>A ton of textA ton of textA ton of textA ton of textA ton of textA ton 
           A ton of textA ton of textA ton of textA ton of textA ton of textA ton 
@@ -61,7 +70,7 @@ function App() {
 
         <div className='lightBorder bgDarkGray px-2 text-light rounded-3 m-3 pt-1'>
           <h5 className='lightGray smallText mt-1 mb-1'>Posted by Rube432</h5>
-          <h2 className='mb-2 fs-2'>Test</h2>
+          <h2 className='mb-2 fs-4'>Test</h2>
           <div>
           <p>A ton of textA ton of textA ton of textA ton of textA ton of textA ton 
           A ton of textA ton of textA ton of textA ton of textA ton of textA ton 

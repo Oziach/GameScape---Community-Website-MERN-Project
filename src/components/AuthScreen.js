@@ -2,6 +2,7 @@ import { useState, useContext} from "react";
 import AuthScreenContext from "./AuthScreenContext";
 import ClickOutHandler from 'react-clickout-handler';
 import axios from 'axios'
+import UserContext from "./UserContext";
 
 function AuthScreen(){
     
@@ -10,6 +11,7 @@ function AuthScreen(){
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     
+    const user = useContext(UserContext);
     const authContext = useContext(AuthScreenContext);
     const visibleClass = authContext.show !== false ? 'd-block' : 'd-none';
 
@@ -21,9 +23,26 @@ function AuthScreen(){
         e.preventDefault();
         const data = {email,username,password};
         axios.post('http://localhost:4000/register',data, {withCredentials:true})
-        .then((res)=>{
-            console.log(res);
+        .then(()=>{
+            user.setUser({username})
+            setEmail('');
+            setPassword('');
+            setUsername('');
+            authContext.setShow(false);
+        });   
+    }
+
+    function login(){
+        const data = {username, password};
+        axios.post('http://localhost:4000/login',data, {withCredentials:true})
+        .then(()=>{
+            authContext.setShow(false);
+            user.setUser({username});
         })
+        
+        setUsername('');
+        setPassword('');
+       
     }
 
     return(
@@ -76,8 +95,8 @@ function AuthScreen(){
 
                     {screenType === 'login' && (
                     <button 
-                        className="my-3 btn btn-light w-75 fw-bold mb-5">
-                        
+                        className="my-3 btn btn-light w-75 fw-bold mb-5"
+                        onClick={()=>login()}>
                         Login
                     </button>
                     )}
