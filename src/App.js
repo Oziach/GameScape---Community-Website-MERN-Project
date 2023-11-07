@@ -4,14 +4,23 @@ import CommunityHeader from './components/CommunityHeader';
 import PostForm from './components/PostForm';
 import AuthScreen from './components/AuthScreen';
 import AuthScreenContext from './components/AuthScreenContext';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import UserContext from './components/UserContext';
 
 function App() {
+
   const [showAuthScreen, setShowAuthScreen] = useState(false);
+  const [user, setUser] = useState({username: 'ash'});
+  useEffect(()=>{
+    axios.get('http://localhost:4000/user', {withCredentials:true});
+  },[])
+
   return (
     <div className='bgLightGray'>
 
       <AuthScreenContext.Provider value={{show:showAuthScreen, setShow: setShowAuthScreen}}>
+        <UserContext.Provider value={user}>
         <Header/>
         <AuthScreen/>
         <CommunityHeader/>
@@ -65,6 +74,7 @@ function App() {
           </p>
           </div>
         </div>
+        </UserContext.Provider>
       </AuthScreenContext.Provider>
     </div>
   );

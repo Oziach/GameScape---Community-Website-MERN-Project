@@ -30,3 +30,7 @@
 .smallText{
     font-size: 0.9em;
 }
+
+.dropdown-menu {
+    min-width: 60px !important;
+  }
