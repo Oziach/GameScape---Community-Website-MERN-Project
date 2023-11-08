@@ -14,7 +14,7 @@ function Header(){
         <header className='position-sticky sticky-top w-100'>
             <div className="navbar bgBlack py-1 px-1 justify-content-start">
 
-                <div className="navbar-brand text-light mx-2 me-3 fs-5">GamersChat (Temporary Name) </div>
+                <div className="navbar-brand text-light mx-2 me-3 fs-4">GamerScape </div>
 
                 <form action="" className='w-50 nav ms-5'>
                 <input type="text" className="w-100 navSmall border-3 border-danger rounded-0 mx-auto p-1" placeholder="Search" />

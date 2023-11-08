@@ -1,3 +1,7 @@
+html, body, #root, #app, #app>div {
+    height: 100%
+  }
+
 .navSmall{
     height: 1.66em;
 }
@@ -33,5 +37,13 @@
 
 .dropdown-menu {
     min-width: 60px !important;
+  }
+
+  .pe-pointer {
+    cursor: pointer;
+  }
+
+  .hoverDanger :hover { 
+    border-color:#DC3545 !important;
   }
 
