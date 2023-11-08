@@ -48,10 +48,10 @@ function AuthScreen(){
     return(
         <div 
             className={"row position-fixed position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center z-3 "+visibleClass} 
-            style={{backgroundColor: 'rgba(0,0,0,0.6)'}} //faded background 
+            style={{backgroundColor: 'rgba(0,0,0,0.6)'}}  
         >   
             <ClickOutHandler onClickOut={()=>{authContext.setShow(false)}}>
-                <div className="col-lg-3 col-md-6 col-10 text-light bgBlack border mx-auto text-center p-5 px-4">
+                <div className="col-lg-3 col-md-6 col-10 text-light bgBlack border mx-auto text-center p-5 px-4 rounded-5">
                     {screenType === 'login' && (
                         <h1 className="mt-2 mb-5">Login</h1>
                     )}

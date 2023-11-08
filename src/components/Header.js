@@ -1,20 +1,23 @@
 import Avatar from '../avatar.png';
-import Button from './Button';
 import AuthScreenContext from './AuthScreenContext';
 import { useContext } from 'react';
 import UserContext from './UserContext';
-
+import { Link } from 'react-router-dom';
+import PostPopupContext from "./PostPopupContext";
 
 function Header(){
 
+    const postPopupContext = useContext(PostPopupContext);
     const authContext = useContext(AuthScreenContext);
     const user = useContext(UserContext);
 
     return(
         <header className='position-sticky sticky-top w-100'>
             <div className="navbar bgBlack py-1 px-1 justify-content-start">
-
+                
+                <Link to='/' className='text-decoration-none'>
                 <div className="navbar-brand text-light mx-2 me-3 fs-4">GamerScape </div>
+                </Link> 
 
                 <form action="" className='w-50 nav ms-5'>
                 <input type="text" className="w-100 navSmall border-3 border-danger rounded-0 mx-auto p-1" placeholder="Search" />
@@ -40,7 +43,9 @@ function Header(){
                     {user.username && (
                     <div >
                         <button 
-                            className="btn btn-sm btn-outline-light rounded-1 mx-2">
+                            className="btn btn-sm btn-outline-light rounded-1 mx-2"
+                            onClick={()=>postPopupContext.setShow(true)}
+                        >
                             Create Post
                         </button>
                         

@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 function PostsListing(){
 
     const [comments, setComments] = useState([]);
-    
+
     useEffect(()=>{
         axios.get('http://localhost:4000/comments', {withCredentials:true})
         .then(response=>{setComments(response.data)});
@@ -15,7 +15,7 @@ function PostsListing(){
     return(  
         <div>
           {comments.map(comment => (
-            <Post {...comment}/>
+            <Post {...comment} open={false}/>
           ))}
         </div>
     )
