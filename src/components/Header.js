@@ -16,7 +16,7 @@ function Header(){
             <div className="navbar bgBlack py-1 px-1 justify-content-start">
                 
                 <Link to='/' className='text-decoration-none'>
-                <div className="navbar-brand text-light mx-2 me-3 fs-4">GamerScape </div>
+                <div className="navbar-brand text-light mx-2 me-3 fs-4">GamerSpace </div>
                 </Link> 
 
                 <form action="" className='w-50 nav ms-5'>

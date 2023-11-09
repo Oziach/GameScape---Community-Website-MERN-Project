@@ -24,6 +24,10 @@ html, body, #root, #app, #app>div {
     background-color: #262626;
 }
 
+.bgLighterGray{
+    background-color: #303030;
+}
+
 .lightGray{
     color: #999999;
 }
@@ -34,6 +38,10 @@ html, body, #root, #app, #app>div {
 
 .smallText{
     font-size: 0.8em;
+}
+
+.smallishText{
+    font-size: 0.9em;
 }
 
 .dropdown-menu {

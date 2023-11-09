@@ -5,7 +5,6 @@ import axios from "axios";
 import AuthScreenContext from "./AuthScreenContext";
 import { Navigate, useNavigate } from "react-router-dom";
 
-
 function PostFormPopup(){
 
     const[title,setTitle] = useState('');
