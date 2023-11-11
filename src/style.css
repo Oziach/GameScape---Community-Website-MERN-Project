@@ -78,10 +78,19 @@ html, body, #root, #app, #app>div {
     color: #DC3545 !important;
   }
 
+  .hoverDanger:hover {
+    color: #DC3545 !important;
+    border-color: #DC3545 !important;
+  }
+
   .justify-self-end{
     justify-self: end !important;
   }
   
+  .sortBy{
+    position: relative !important;
+    top: 0.1em;
+  }
 
 
   /* .reactMarkDown {

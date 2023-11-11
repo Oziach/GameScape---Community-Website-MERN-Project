@@ -1,15 +1,20 @@
 import axios from "axios";
 import { useContext } from "react";
 import RootCommentContext from "./RootCommentContext";
+import AuthScreenContext from "./AuthScreenContext";
 
 function LikesDislikes(props){
 
     const rootCommentInfo = useContext(RootCommentContext);
+    const authContext = useContext(AuthScreenContext);
 
     function sendLikeDislike(which) {
         axios.get('http://localhost:4000/likedislike/'+props.commentId+'/'+which, {withCredentials:true})
-        .then(res=>{
+        .then((res)=>{ 
             rootCommentInfo.refreshLikesDislikes();
+        })
+        .catch((err)=>{
+            authContext.setShow('login');       
         })
     }
 
@@ -28,6 +33,7 @@ function LikesDislikes(props){
     const userLikeDislike = rootCommentInfo.userLikesDislikes ? rootCommentInfo.userLikesDislikes[props.commentId] : 'none';
     const likePressed = userLikeDislike === 'like' ? 'text-danger' : ''
     const dislikePressed = userLikeDislike === 'dislike' ? 'text-danger' : ''
+    console.log(userLikeDislike);
 
     return(
         <div className="d-inline">

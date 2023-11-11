@@ -13,7 +13,7 @@ function Comments(props){
     const  rootCommentInfo = useContext(RootCommentContext);
 
     return(
-        <div className="mt-2">
+        <div className="mt-0">
                 {comments.map(comment => {
                     const replies = props.comments.filter(c=>c.parentId === comment._id);
                     return (

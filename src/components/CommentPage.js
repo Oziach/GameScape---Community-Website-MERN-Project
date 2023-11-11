@@ -1,10 +1,12 @@
 import { useParams } from "react-router-dom";
-import { useState, useEffect,} from "react";
+import { useState, useEffect, useContext,} from "react";
 import axios from "axios";
 import Post from "./Post";
 import CommentForm from "./CommentForm";
 import Comments from "./Comments";
 import RootCommentContext from "./RootCommentContext";
+import UserContext from "./UserContext";
+import SortBar from "./SortBar";
 
 function CommentPage(){
 
@@ -13,9 +15,11 @@ function CommentPage(){
     const [comments, setComments] = useState([]);
     const [commentsTotals, setCommentsTotals] = useState(null);
     const [userLikesDislikes, setUserLikesDislikes] = useState(null);
+    const [sort, setSort] = useState('new');
+    const {username} = useContext(UserContext);
 
     function refreshComments() {
-        axios.get('http://localhost:4000/comments/root/'+commentId)
+        axios.get('http://localhost:4000/comments/root/'+commentId+'/?sort='+sort)
         .then((res)=>{
             setComments(res.data);
         })
@@ -36,11 +40,11 @@ function CommentPage(){
             setComment(response.data);
             refreshComments();
         });
-    },[])
+    },[sort])
 
     useEffect(()=>{
         refreshLikesDislikes();
-    },[comments])
+    },[comments,username])
 
     return(
         <div className="pt-1">
@@ -53,7 +57,11 @@ function CommentPage(){
                             parentId={commentId} 
                             showCommentAs={true}
                             onSubmit={refreshComments}
-                        />       
+                        />     
+                        <div className="mt-3 mb-0">
+
+                        </div>
+                    <SortBar sort={sort} setSort={setSort}/>
                     <Comments parentId={commentId} comments={comments} rootId={commentId} />
                 </RootCommentContext.Provider>
                 </div>

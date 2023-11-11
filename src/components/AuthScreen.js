@@ -10,13 +10,15 @@ function AuthScreen(){
     const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    
+    const [incorrectLogin, setIncorrectLogin] = useState(false);
+
     const user = useContext(UserContext);
     const authContext = useContext(AuthScreenContext);
     const visibleClass = authContext.show !== false ? 'd-block' : 'd-none';
+    const incorrectVisible = incorrectLogin && (authContext.show === 'login') ? 'd-block' : 'd-none';
 
     if(authContext.show && authContext.show !== screenType){
-        setScreenType(authContext.show)
+        setScreenType(authContext.show) 
     }
 
     function register(e) {
@@ -38,11 +40,14 @@ function AuthScreen(){
         .then(()=>{
             authContext.setShow(false);
             user.setUser({username});
+            setIncorrectLogin(false);
         })
-        
+        .catch(()=>{
+            setIncorrectLogin(true);
+        })
+
         setUsername('');
-        setPassword('');
-       
+        setPassword(''); 
     }
 
     return(
@@ -72,6 +77,7 @@ function AuthScreen(){
                     </label>
                     )}
 
+                    <div className={"text-danger "+incorrectVisible}>Incorrect username or password</div>
                     <label className="w-100">
                         <div className="text-start">Username:</div>
                         <input

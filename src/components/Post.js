@@ -10,7 +10,7 @@ function Post(props){
     function PostContent(){
         return(
             
-            <div className={'lightBorder hoverDanger bgDarkGray px-1 text-light rounded-3 pb-1 border-1 z-1' + redBorder}>
+            <div className={'lightBorder bgDarkGray px-1 text-light rounded-3 pb-1 border-1 z-1' + redBorder}>
                 <div className="d-flex justify-content-between">
                     <h5 className='lightGray smallText mt-1 mb-1 mx-1'>Posted by  
                         <span className={props.open ? 'text-danger' : ''}>{" " + props.author + " "}</span> 
