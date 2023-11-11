@@ -58,7 +58,7 @@ function CommunityFormPopup(){
 <input 
                     type='text' 
                     className="d-block text-light bgLightGray rounded-1 border-1 border-secondary w-100 px-2 py-1 mb-3"
-                    placeholder="Community Icon url"
+                    placeholder="Community icon url"
                     value={iconImage}
                     onChange={(e)=>setIconImage(e.target.value)}
                     required
