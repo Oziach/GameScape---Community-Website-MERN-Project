@@ -5,12 +5,14 @@ import UserContext from './UserContext';
 import { Link } from 'react-router-dom';
 import PostPopupContext from "./PostPopupContext";
 import RedirectContext from './RedirectContext';
+import { CommunityContext } from './CommunityContext';
 
 function Header(){
 
     const postPopupContext = useContext(PostPopupContext);
-    const authContext = useContext(AuthScreenContext);
+    const {setShow: setShowAuth} = useContext(AuthScreenContext);
     const {setRedirect} = useContext(RedirectContext);
+    const {setShow: setShowCommunity} = useContext(CommunityContext);
     const user = useContext(UserContext);
     const [searchText, setSearchText] = useState('');
 
@@ -41,13 +43,13 @@ function Header(){
                         <div className='nav me-3'>
                             <button 
                                 className='btn btn-outline-light btn-sm fw-bold rounded-4 px-3 mx-1'
-                                onClick={()=>{authContext.setShow('login')}}
+                                onClick={()=>{setShowAuth('login')}}
                             >
                                 Login
                             </button>
                             <button 
                                 className='btn btn-outline-light btn-sm fw-bold rounded-4 px-3 mx-1'
-                                onClick={()=>{authContext.setShow('register')}}
+                                onClick={()=>{setShowAuth('register')}}
                             >
                                 Sign Up 
                             </button>
@@ -56,6 +58,19 @@ function Header(){
 
                     {user.username && (
                     <div >
+                        
+                        {user.moderator && (
+                            <button 
+                            className="btn btn-sm btn-outline-warning rounded-1 mx-2"
+                            onClick={()=>{
+                                setShowCommunity(true);
+                            }}
+                        >
+                            Create Community
+                        </button>
+                        )}
+                        
+
                         <button 
                             className="btn btn-sm btn-outline-light rounded-1 mx-2"
                             onClick={()=>postPopupContext.setShow(true)}

@@ -12,6 +12,7 @@ import Routing from './components/Routing';
 import PostFormPopup from './components/PostFormPopup';
 import PostPopupContext from './components/PostPopupContext';
 import RedirectContext from './components/RedirectContext';
+import { CommunityContextProvider } from './components/CommunityContext';
 
 function App() {
 
@@ -36,13 +37,16 @@ function App() {
   return (
     <div className='bgLightGray h-100 text-light'>
 
+      
       <AuthScreenContext.Provider value={{show:showAuthScreen, setShow: setShowAuthScreen}}>
       <UserContext.Provider value={{...user,logout, setUser}}>
+      <CommunityContextProvider>
       <PostPopupContext.Provider value={{show:showPostPopup, setShow:setShowPostPopup}}>
       <RedirectContext.Provider value={{redirect, setRedirect}}>
         <Routing/>
       </RedirectContext.Provider>
       </PostPopupContext.Provider>
+      </CommunityContextProvider>
       </UserContext.Provider>
       </AuthScreenContext.Provider>
     </div>

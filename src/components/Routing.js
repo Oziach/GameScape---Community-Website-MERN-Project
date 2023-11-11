@@ -7,6 +7,7 @@ import PostFormPopup from "./PostFormPopup";
 import { useContext, useEffect } from "react";
 import RedirectContext from "./RedirectContext";
 import SearchResultsPage from "./SearchResultsPage";
+import CommunityFormPopup from "./CommunityFormPopup";
 
 function Routing(){
 
@@ -33,6 +34,7 @@ function Routing(){
             <Route path="/search/:text" Component={SearchResultsPage}/>
           </Routes>
         <PostFormPopup/>
+        <CommunityFormPopup/>
         <AuthScreen/>
           </>
         )}

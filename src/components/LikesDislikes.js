@@ -43,7 +43,7 @@ function LikesDislikes(props){
             </svg>
             </button>
 
-            <span className="smallishText mx-1">{likes}</span>
+            <span className="smallishText mx-1 text-light">{likes}</span>
 
             <div className="d-inline-block w-2 h-5 lightGray fw-light mx-1">|</div>
 
@@ -53,7 +53,7 @@ function LikesDislikes(props){
             </svg>
             </button>
             
-            <span className="smallishText mx-1">{dislikes}</span>
+            <span className="smallishText mx-1 text-light">{dislikes}</span>
 
         </div>
     )
