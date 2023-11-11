@@ -11,13 +11,14 @@ import CommentPage from './components/CommentPage';
 import Routing from './components/Routing';
 import PostFormPopup from './components/PostFormPopup';
 import PostPopupContext from './components/PostPopupContext';
+import RedirectContext from './components/RedirectContext';
 
 function App() {
 
   const [showPostPopup, setShowPostPopup] = useState(false);
   const [showAuthScreen, setShowAuthScreen] = useState(false);
   const [user, setUser] = useState({});
-
+  const [redirect, setRedirect] = useState(false);
 
   useEffect(()=>{
     axios.get('http://localhost:4000/user', {withCredentials:true})
@@ -38,7 +39,9 @@ function App() {
       <AuthScreenContext.Provider value={{show:showAuthScreen, setShow: setShowAuthScreen}}>
       <UserContext.Provider value={{...user,logout, setUser}}>
       <PostPopupContext.Provider value={{show:showPostPopup, setShow:setShowPostPopup}}>
+      <RedirectContext.Provider value={{redirect, setRedirect}}>
         <Routing/>
+      </RedirectContext.Provider>
       </PostPopupContext.Provider>
       </UserContext.Provider>
       </AuthScreenContext.Provider>

@@ -1,16 +1,17 @@
-import Post from "./Post";
+import { redirect, useParams } from "react-router-dom";
+import { useState,useEffect } from "react";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import Post from "./Post";
 import RootCommentContext from "./RootCommentContext";
 
-function PostsListing(){
-
+function SearchResultsPage(){
+    const {text} = useParams();
     const [comments, setComments] = useState([]);
     const [commentsTotals, setCommentsTotals] = useState(null);
     const [userLikesDislikes, setUserLikesDislikes] = useState(null);
 
     useEffect(()=>{
-        axios.get('http://localhost:4000/comments', {withCredentials:true})
+        axios.get('http://localhost:4000/comments?search='+text, {withCredentials:true})
         .then(response=>{
           setComments(response.data)
         });
@@ -19,6 +20,7 @@ function PostsListing(){
     useEffect(()=>{
       refreshLikesDislikes();
     },[comments])
+
 
     function refreshLikesDislikes() {
       const commentsIds = [...comments];
@@ -41,4 +43,5 @@ function PostsListing(){
     )
 }
 
-export default PostsListing;
+export default SearchResultsPage;
+

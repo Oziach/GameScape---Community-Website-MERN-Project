@@ -44,7 +44,7 @@ function PostFormPopup(){
             className={"row position-fixed position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center z-2 "+visibleClass} 
             style={{backgroundColor: 'rgba(0,0,0,0.8)'}} //faded background 
         >   
-            <div className="col-lg-4 col-md-6 col-10 text-light bgBlack border mx-auto p-4 rounded-5">
+            <div className="col-lg-4 col-md-6 col-10 text-light bgBlack border border-2 border-danger mx-auto p-4 rounded-4">
                 
                 <h4 className="text-light mb-4">Create a post!</h4>
                 <input 

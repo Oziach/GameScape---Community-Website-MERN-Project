@@ -1,26 +1,40 @@
 import Avatar from '../avatar.png';
 import AuthScreenContext from './AuthScreenContext';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import UserContext from './UserContext';
 import { Link } from 'react-router-dom';
 import PostPopupContext from "./PostPopupContext";
+import RedirectContext from './RedirectContext';
 
 function Header(){
 
     const postPopupContext = useContext(PostPopupContext);
     const authContext = useContext(AuthScreenContext);
+    const {setRedirect} = useContext(RedirectContext);
     const user = useContext(UserContext);
+    const [searchText, setSearchText] = useState('');
+
+    function doSearch(e) {
+        e.preventDefault();
+        setRedirect('/search/'+encodeURIComponent(searchText));
+    }
 
     return(
         <header className='position-sticky sticky-top w-100'>
             <div className="navbar bgBlack py-1 px-1 justify-content-start">
                 
                 <Link to='/' className='text-decoration-none'>
-                <div className="navbar-brand text-light mx-2 me-3 fs-4">GamerSpace </div>
+                <div className="navbar-brand text-light mx-2 me-3 fs-4">GameScape</div>
                 </Link> 
 
-                <form action="" className='w-50 nav ms-5'>
-                <input type="text" className="w-100 navSmall border-3 border-danger rounded-0 mx-auto p-1" placeholder="Search" />
+                <form onSubmit={(e)=>doSearch(e)} className='w-50 nav ms-5'>
+                    <input 
+                        type="text" 
+                        className="w-100 navSmall border-3 border-danger rounded-0 mx-auto p-1" 
+                        placeholder="Search" 
+                        value={searchText}
+                        onChange={(e)=>setSearchText(e.target.value)}
+                        />
                 </form>
                 <div className='ms-auto me-1'>  
                     {!user.username && (
