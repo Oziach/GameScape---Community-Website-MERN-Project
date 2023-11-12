@@ -37,9 +37,9 @@ function AuthScreen(){
     function login(){
         const data = {username, password};
         axios.post('http://localhost:4000/login',data, {withCredentials:true})
-        .then(()=>{
+        .then((res)=>{
             authContext.setShow(false);
-            user.setUser({username});
+            user.setUser(res.data);
             setIncorrectLogin(false);
         })
         .catch(()=>{

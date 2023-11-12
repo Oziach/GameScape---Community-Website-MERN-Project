@@ -2,22 +2,30 @@ import { useContext, useState,} from "react"
 import { useNavigate } from "react-router-dom";
 import { CommunityContext } from "./CommunityContext"
 import AuthScreenContext from "./AuthScreenContext";
+import axios from "axios";
+import RedirectContext from "./RedirectContext";
 
 function CommunityFormPopup(){
     
+    const {setRedirect} = useContext(RedirectContext);
     const [name, setName] = useState('');
     const [title, setTitle] = useState('');
     const [cardImage, setCardImage] = useState('');
     const [iconImage, setIconImage] = useState('');
     const {show, setShow} = useContext(CommunityContext);
-    const navigate = useNavigate();
+
 
     if(!show){
         return null;
     }
 
     function createCommunity(){
-
+        const data = {name, title, iconImage, cardImage};
+        axios.post('/communities/', data, {withCredentials:true})
+        .then(() =>{
+            setRedirect('/community/'+name);
+            setShow(false);
+        })
     }
     
     return(
@@ -52,7 +60,6 @@ function CommunityFormPopup(){
                     placeholder="Card image url"
                     value={cardImage}
                     onChange={(e)=>setCardImage(e.target.value)}
-                    required
                 />
 
 <input 
@@ -61,7 +68,6 @@ function CommunityFormPopup(){
                     placeholder="Community icon url"
                     value={iconImage}
                     onChange={(e)=>setIconImage(e.target.value)}
-                    required
                 />
                 
                 <div className="text-center">

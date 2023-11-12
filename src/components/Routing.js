@@ -14,7 +14,7 @@ function Routing(){
     const {redirect, setRedirect} = useContext(RedirectContext);
 
     useEffect(()=>{
-      setRedirect(false);
+      if(redirect) setRedirect(false);
   },[redirect])
 
     return(
@@ -29,9 +29,9 @@ function Routing(){
           <>
           
           <Routes>    
-            <Route path="/" Component={Community}/>
-            <Route path="/comments/:id" Component={CommentPage}/>
-            <Route path="/search/:text" Component={SearchResultsPage}/>
+            <Route exact path="/community/:communityName" Component={Community}/>
+            <Route exact path="/comments/:id" Component={CommentPage}/>
+            <Route exact path="/search/:text" Component={SearchResultsPage}/>
           </Routes>
         <PostFormPopup/>
         <CommunityFormPopup/>

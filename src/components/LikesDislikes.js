@@ -33,7 +33,6 @@ function LikesDislikes(props){
     const userLikeDislike = rootCommentInfo.userLikesDislikes ? rootCommentInfo.userLikesDislikes[props.commentId] : 'none';
     const likePressed = userLikeDislike === 'like' ? 'text-danger' : ''
     const dislikePressed = userLikeDislike === 'dislike' ? 'text-danger' : ''
-    console.log(userLikeDislike);
 
     return(
         <div className="d-inline">

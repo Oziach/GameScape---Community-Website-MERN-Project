@@ -16,6 +16,10 @@ html, body, #root, #app, #app>div {
     width: 7.5em;
 }
 
+.navbarIconImage{
+  height: 2.66em;
+}
+
 .bgDarkGray{
     background-color: #1a1a1a;
 }
@@ -92,6 +96,10 @@ html, body, #root, #app, #app>div {
     top: 0.1em;
   }
 
+  img{
+    object-fit: contain;
+    height: 20em;
+  }
 
   /* .reactMarkDown {
     padding: 0px !important;

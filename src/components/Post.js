@@ -2,10 +2,13 @@ import { Link } from "react-router-dom";
 import TimeAgo from "timeago-react";
 import ReactMarkdown from 'react-markdown'
 import LikesDislikes from "./LikesDislikes";
+import { useContext } from "react";
+import { CommunityContext } from "./CommunityContext";
 
 function Post(props){
 
     const redBorder = props.open ? " border border-danger mt-1 " : ""; 
+    const {communityName, setCommunityName} = useContext(CommunityContext);
     
     function PostContent(){
         return(
@@ -33,14 +36,17 @@ function Post(props){
     return(
         
         <div className={"pb-1 px-2 " + (props.open ? "" : "hoverDanger")} >
-
-        {props.open && PostContent()}
+            
+        
+        {/* {props.open && PostContent()}
+        {props.open && (!communityName) && setCommunityName(props.community)} */}
 
         {!props.open && (
             <div>
+                
                 <div className="position-relative w-0 h-0">
                    <div className="position-absolute end-0 me-1 mt-1">
-                    <LikesDislikes commentId={props._id}/>
+                    <LikesDislikes commentId={props._id} size='small'/>
                    </div>
                 </div>
                 <Link to={'/comments/'+props._id} className="text-decoration-none z-1">

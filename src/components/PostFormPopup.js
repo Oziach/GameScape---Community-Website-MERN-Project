@@ -4,6 +4,7 @@ import PostPopupContext from "./PostPopupContext";
 import axios from "axios";
 import AuthScreenContext from "./AuthScreenContext";
 import { Navigate, useNavigate } from "react-router-dom";
+import { CommunityContext } from "./CommunityContext";
 
 function PostFormPopup(){
 
@@ -14,16 +15,18 @@ function PostFormPopup(){
     const postPopupContext = useContext(PostPopupContext);
     const visibleClass = postPopupContext.show ? 'd-block' : 'd-none'
     const navigate = useNavigate();
+    const {communityName} = useContext(CommunityContext);
 
     function createPost() {
-    const data = {title,body};
-    axios.post('http://localhost:4000/comments', data, {withCredentials:true})
+    const data = {title,body,communityName};
+    axios.post('/comments', data, {withCredentials:true})
       .then(response => {
         setNewPostId(response.data._id);
         setTitle('');
         setBody('');
       })
       .catch(error => {
+        if(!error) {console.log("Request not sent");}
         if (error.response.status === 401) {
           authContext.setShow('login');
         }

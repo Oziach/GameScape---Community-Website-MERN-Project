@@ -14,6 +14,8 @@ import PostPopupContext from './components/PostPopupContext';
 import RedirectContext from './components/RedirectContext';
 import { CommunityContextProvider } from './components/CommunityContext';
 
+axios.defaults.baseURL = 'http://localhost:4000'
+
 function App() {
 
   const [showPostPopup, setShowPostPopup] = useState(false);
@@ -22,7 +24,7 @@ function App() {
   const [redirect, setRedirect] = useState(false);
 
   useEffect(()=>{
-    axios.get('http://localhost:4000/user', {withCredentials:true})
+    axios.get('/user', {withCredentials:true})
     .then((response)=>{
       setUser(response.data)
     })
@@ -30,7 +32,7 @@ function App() {
   },[])
 
   function logout(){
-    axios.post('http://localhost:4000/logout',{},{withCredentials:true})
+    axios.post('/logout',{},{withCredentials:true})
     .then(()=>setUser({}));
   }
 

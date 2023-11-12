@@ -55,6 +55,7 @@ function CommentPage(){
                         <CommentForm 
                             rootId={commentId}
                             parentId={commentId} 
+                            communityName={comment.community}
                             showCommentAs={true}
                             onSubmit={refreshComments}
                         />     
@@ -62,7 +63,7 @@ function CommentPage(){
 
                         </div>
                     <SortBar sort={sort} setSort={setSort}/>
-                    <Comments parentId={commentId} comments={comments} rootId={commentId} />
+                    <Comments parentId={commentId} comments={comments} rootId={commentId} communityName={comment.community} />
                 </RootCommentContext.Provider>
                 </div>
             )}

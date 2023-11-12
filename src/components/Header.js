@@ -12,7 +12,7 @@ function Header(){
     const postPopupContext = useContext(PostPopupContext);
     const {setShow: setShowAuth} = useContext(AuthScreenContext);
     const {setRedirect} = useContext(RedirectContext);
-    const {setShow: setShowCommunity} = useContext(CommunityContext);
+    const {setShow: setShowCommunity, iconImage, communityName} = useContext(CommunityContext);
     const user = useContext(UserContext);
     const [searchText, setSearchText] = useState('');
 
@@ -38,7 +38,16 @@ function Header(){
                         onChange={(e)=>setSearchText(e.target.value)}
                         />
                 </form>
-                <div className='ms-auto me-1'>  
+
+                <div className='ms-auto me-1 d-flex align-items-center'>  
+
+                    {communityName && (
+                        <Link to={"/community/"+communityName}className='d-inline-block me-2 p-0 border-secondary border-1 lightBorder'>
+                        <img className='navbarIconImage m-0 p-0' src={iconImage}/>
+                        </Link>
+                    )}
+                    
+
                     {!user.username && (
                         <div className='nav me-3'>
                             <button 
@@ -55,10 +64,11 @@ function Header(){
                             </button>
                         </div>
                     )}
+                    
 
                     {user.username && (
                     <div >
-                        
+                        {console.log(user)  }
                         {user.moderator && (
                             <button 
                             className="btn btn-sm btn-outline-warning rounded-1 mx-2"
