@@ -38,8 +38,8 @@ function Post(props){
         <div className={"pb-1 px-2 " + (props.open ? "" : "hoverDanger")} >
             
         
-        {/* {props.open && PostContent()}
-        {props.open && (!communityName) && setCommunityName(props.community)} */}
+        {props.open && PostContent()}
+        {props.open && (!communityName) && setCommunityName(props.community)}
 
         {!props.open && (
             <div>

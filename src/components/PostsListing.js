@@ -12,21 +12,20 @@ function PostsListing(){
     const [commentsTotals, setCommentsTotals] = useState(null);
     const [userLikesDislikes, setUserLikesDislikes] = useState(null);
     const [sort, setSort] = useState('new');
-    const {communityName} = useContext(CommunityContext);
+    const {name:community} = useContext(CommunityContext);
     const {username} = useContext(UserContext);
 
     useEffect(()=>{
         
-      //THE ERROR HAS SOMETHING TO DO WITH THE COMMUNITY NAME BEING LOADED.
-        axios.get('/comments?sort='+sort+'&community=osrs'+communityName, {withCredentials:true})
+        axios.get('/comments?sort='+sort+'&community='+community, {withCredentials:true})
         .then(response=>{
           setComments(response.data)
         });
-    },[/*sort,communityName*/])
+    },[sort,community])
    
-    // useEffect(()=>{
-    //   refreshLikesDislikes();
-    // },[comments,username])
+    useEffect(()=>{
+      refreshLikesDislikes();
+    },[comments,username])
 
 
     function refreshLikesDislikes() {
