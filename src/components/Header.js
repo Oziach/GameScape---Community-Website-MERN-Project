@@ -12,7 +12,7 @@ function Header(){
     const postPopupContext = useContext(PostPopupContext);
     const {setShow: setShowAuth} = useContext(AuthScreenContext);
     const {setRedirect} = useContext(RedirectContext);
-    const {setShow: setShowCommunity, iconImage, communityName} = useContext(CommunityContext);
+    const {setShow: setShowCommunity, iconImage, name:communityName} = useContext(CommunityContext);
     const user = useContext(UserContext);
     const [searchText, setSearchText] = useState('');
 
@@ -68,7 +68,6 @@ function Header(){
 
                     {user.username && (
                     <div >
-                        {console.log(user)  }
                         {user.moderator && (
                             <button 
                             className="btn btn-sm btn-outline-warning rounded-1 mx-2"
@@ -80,13 +79,15 @@ function Header(){
                         </button>
                         )}
                         
-
-                        <button 
-                            className="btn btn-sm btn-outline-light rounded-1 mx-2"
-                            onClick={()=>postPopupContext.setShow(true)}
-                        >
-                            Create Post
-                        </button>
+                        {communityName &&(
+                             <button 
+                             className="btn btn-sm btn-outline-light rounded-1 mx-2"
+                             onClick={()=>postPopupContext.setShow(true)}
+                             >
+                             Create Post
+                         </button>
+                        )}
+                       
                         
                         <div className="dropdown d-inline m-0">
                             <button className='btn btn-dark btn-sm dropdown-toggle m-0' type="button" id="avatarButton" data-bs-toggle="dropdown" aria-expanded="false">

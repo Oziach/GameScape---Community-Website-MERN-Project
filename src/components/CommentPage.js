@@ -7,6 +7,7 @@ import Comments from "./Comments";
 import RootCommentContext from "./RootCommentContext";
 import UserContext from "./UserContext";
 import SortBar from "./SortBar";
+import PostPopupContext from "./PostPopupContext";
 
 function CommentPage(){
 
@@ -17,6 +18,7 @@ function CommentPage(){
     const [userLikesDislikes, setUserLikesDislikes] = useState(null);
     const [sort, setSort] = useState('new');
     const {username} = useContext(UserContext);
+    const {editedPost} = useContext(PostPopupContext);
 
     function refreshComments() {
         axios.get('http://localhost:4000/comments/root/'+commentId+'/?sort='+sort)
@@ -40,7 +42,7 @@ function CommentPage(){
             setComment(response.data);
             refreshComments();
         });
-    },[sort])
+    },[sort,editedPost])
 
     useEffect(()=>{
         refreshLikesDislikes();

@@ -1,9 +1,8 @@
-import ClickOutHandler from "react-clickout-handler";
 import { useContext, useEffect, useState } from "react";
 import PostPopupContext from "./PostPopupContext";
 import axios from "axios";
 import AuthScreenContext from "./AuthScreenContext";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { CommunityContext } from "./CommunityContext";
 
 function PostFormPopup(){
@@ -12,39 +11,75 @@ function PostFormPopup(){
     const[body,setBody] = useState('');
     const[newPostId, setNewPostId] = useState(null);
     const authContext = useContext(AuthScreenContext);
+    const [type, setType] = useState(false)
     const postPopupContext = useContext(PostPopupContext);
     const visibleClass = postPopupContext.show ? 'd-block' : 'd-none'
     const navigate = useNavigate();
-    const {communityName} = useContext(CommunityContext);
-
+    const {name:communityName} = useContext(CommunityContext);
+    
     function createPost() {
-    const data = {title,body,communityName};
-    axios.post('/comments', data, {withCredentials:true})
-      .then(response => {
-        setNewPostId(response.data._id);
-        setTitle('');
-        setBody('');
-      })
-      .catch(error => {
-        if(!error) {console.log("Request not sent");}
-        if (error.response.status === 401) {
-          authContext.setShow('login');
-        }
-      });
+
+    if(postPopupContext.show === 'create'){
+
+        const data = {title,body,communityName};
+        axios.post('/comments', data, {withCredentials:true})
+        .then(response => {
+            postPopupContext.setShow(false);
+            setNewPostId(response.data._id);
+            setTitle('');
+            setBody('');
+        })
+        .catch(error => {
+            if(!error) {console.log("Request not sent");}
+            if (error.response.status === 401) {
+            authContext.setShow('login');
+            }
+        });
+    }
+
+    else if(postPopupContext.show === 'edit'){
+        const data = {commentId: postPopupContext.popupComment._id, title, body};
+        axios.post('/comments/edit', data, {withCredentials:true})
+        .then(response=>{
+            setTitle('');
+            setBody('');
+            postPopupContext.setShow(false);
+            setType(false);
+            postPopupContext.setEditedPost(!postPopupContext.editedPost);
+        })
+        .catch(error=>{
+            console.log(error);
+        })
+    }
+    
   }
 
   if (newPostId) { 
     postPopupContext.setShow(false);
+    setType(false);
     var id = newPostId;
     setNewPostId(null);
     navigate("/comments/"+id);
   }
 
-  useEffect(()=>{
-    setTitle('');
-    setBody('');
-  },[])
 
+  const topText = postPopupContext.show && postPopupContext.show === 'create' ? "Create a post" : "Edit post"
+
+    if(postPopupContext.show === 'create' && postPopupContext.show !== type){
+        setBody('');
+        setTitle('');
+        setType(postPopupContext.show);
+    }
+    else if(postPopupContext.show === 'edit' && postPopupContext.show !== type){
+        if(postPopupContext.popupComment){
+            setBody(postPopupContext.popupComment.body);
+            setTitle(postPopupContext.popupComment.title);
+            setType(postPopupContext.show);
+        }
+    }
+    
+    const postButtonContent = postPopupContext.show === 'create' ? "Post" : "Edit";
+  
 
     return(
         <div       
@@ -53,7 +88,7 @@ function PostFormPopup(){
         >   
             <form className="col-lg-4 col-md-6 col-10 text-light bgBlack border border-2 border-danger mx-auto p-4 rounded-2">
                 
-                <h4 className="text-light mb-4">Create a post!</h4>
+                <h4 className="text-light mb-4">{topText}</h4>
                 <input 
                     type='text' 
                     className="d-block text-light bgLightGray rounded-1 border-1 border-secondary w-100 px-2 py-1 mb-3"
@@ -74,14 +109,18 @@ function PostFormPopup(){
                 <div className="text-end">
                     <button
                         className="btn btn-outline-light mt-3 rounded-1 pb-2 px-4 mx-4 fw-bold"
-                        onClick={()=>{postPopupContext.setShow(false); setTitle('');setBody('')}}>
+                        onClick={()=>{
+                            postPopupContext.setShow(false);
+                            setType(false)
+                             setTitle('');
+                            setBody('')}}>
                         Cancel
                     </button>
 
                     <button
                         className="btn btn-danger mt-3 rounded-1 pb-2 px-4 fw-bold"
                         onClick={()=>{createPost();}}>
-                        Post
+                        {postButtonContent}
                     </button>
                 </div>
                 

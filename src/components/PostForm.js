@@ -14,9 +14,10 @@ function PostForm(){
               className='bgLightGray text-light fs-6 rounded-1 p-1 w-100 border border-dark border-1'
               placeholder='Create a post'
               value={''}
+              onChange={()=>{}}
               onFocus={(e)=>{
                 e.preventDefault();
-                postPopupContext.setShow(true); 
+                postPopupContext.setShow('create'); 
               }}/>
           </form>
         </div>

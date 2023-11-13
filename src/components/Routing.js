@@ -8,6 +8,7 @@ import { useContext, useEffect } from "react";
 import RedirectContext from "./RedirectContext";
 import SearchResultsPage from "./SearchResultsPage";
 import CommunityFormPopup from "./CommunityFormPopup";
+import DeletePopup from "./DeletePopup";
 
 function Routing(){
 
@@ -27,12 +28,12 @@ function Routing(){
 
         {!redirect && (
           <>
-          
           <Routes>    
             <Route exact path="/community/:communityName" Component={Community}/>
             <Route exact path="/comments/:id" Component={CommentPage}/>
             <Route exact path="/search/:text" Component={SearchResultsPage}/>
           </Routes>
+          <DeletePopup/>
         <PostFormPopup/>
         <CommunityFormPopup/>
         <AuthScreen/>

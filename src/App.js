@@ -13,13 +13,16 @@ import PostFormPopup from './components/PostFormPopup';
 import PostPopupContext from './components/PostPopupContext';
 import RedirectContext from './components/RedirectContext';
 import { CommunityContextProvider } from './components/CommunityContext';
+import { DeleteContextProvider } from './components/DeleteContext';
 
 axios.defaults.baseURL = 'http://localhost:4000'
 
 function App() {
 
   const [showPostPopup, setShowPostPopup] = useState(false);
+  const [popupComment, setPopupComment] = useState(false);
   const [showAuthScreen, setShowAuthScreen] = useState(false);
+  const [editedPost, setEditedPost] = useState(false);
   const [user, setUser] = useState({});
   const [redirect, setRedirect] = useState(false);
 
@@ -43,9 +46,11 @@ function App() {
       <AuthScreenContext.Provider value={{show:showAuthScreen, setShow: setShowAuthScreen}}>
       <UserContext.Provider value={{...user,logout, setUser}}>
       <CommunityContextProvider>
-      <PostPopupContext.Provider value={{show:showPostPopup, setShow:setShowPostPopup}}>
+      <PostPopupContext.Provider value={{show:showPostPopup, setShow:setShowPostPopup, popupComment, setPopupComment, editedPost, setEditedPost}}>
       <RedirectContext.Provider value={{redirect, setRedirect}}>
+      <DeleteContextProvider>
         <Routing/>
+      </DeleteContextProvider>
       </RedirectContext.Provider>
       </PostPopupContext.Provider>
       </CommunityContextProvider>

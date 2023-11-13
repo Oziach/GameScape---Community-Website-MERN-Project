@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react"
 export const CommunityContext=React.createContext({});
 
 export function CommunityContextProvider({children}){
+    
     const [show,setShow] = useState(false);
     const [communityName, setCommunityName] = useState('');
     const [communityInfo, setCommunityInfo] = useState({});

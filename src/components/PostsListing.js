@@ -5,6 +5,7 @@ import RootCommentContext from "./RootCommentContext";
 import UserContext from "./UserContext";
 import SortBar from "./SortBar";
 import { CommunityContext } from "./CommunityContext";
+import PostPopupContext from "./PostPopupContext";
 
 function PostsListing(){
 
@@ -14,19 +15,22 @@ function PostsListing(){
     const [sort, setSort] = useState('new');
     const {name:community} = useContext(CommunityContext);
     const {username} = useContext(UserContext);
+    const {editedPost} = useContext(PostPopupContext);
 
     useEffect(()=>{
-        
-        axios.get('/comments?sort='+sort+'&community='+community, {withCredentials:true})
-        .then(response=>{
-          setComments(response.data)
-        });
-    },[sort,community])
+        refreshListingComments();
+      },[sort,community,editedPost]);
    
     useEffect(()=>{
       refreshLikesDislikes();
     },[comments,username])
 
+    function refreshListingComments(){
+      axios.get('/comments?sort='+sort+'&community='+community, {withCredentials:true})
+        .then(response=>{
+          setComments(response.data)
+        });
+    }
 
     function refreshLikesDislikes() {
       const commentsIds = [...comments];
@@ -40,7 +44,6 @@ function PostsListing(){
     return(  
         
         <div>
-            {console.log(comments)}
           <SortBar sort={sort} setSort={setSort}/>
           {comments.map(comment => (
             <RootCommentContext.Provider value={{refreshLikesDislikes, commentsTotals, userLikesDislikes}}>
