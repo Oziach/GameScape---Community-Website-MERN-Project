@@ -6,6 +6,7 @@ import UserContext from "./UserContext";
 import SortBar from "./SortBar";
 import { CommunityContext } from "./CommunityContext";
 import PostPopupContext from "./PostPopupContext";
+import { DeleteContext } from "./DeleteContext";
 
 function PostsListing(){
 
@@ -16,10 +17,11 @@ function PostsListing(){
     const {name:community} = useContext(CommunityContext);
     const {username} = useContext(UserContext);
     const {editedPost} = useContext(PostPopupContext);
+    const {deleted: deletedPost} = useContext(DeleteContext);
 
     useEffect(()=>{
         refreshListingComments();
-      },[sort,community,editedPost]);
+      },[sort,community,editedPost,deletedPost]);
    
     useEffect(()=>{
       refreshLikesDislikes();

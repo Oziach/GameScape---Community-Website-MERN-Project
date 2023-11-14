@@ -1,19 +1,22 @@
 
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
-import AuthScreenContext from "./AuthScreenContext";
-import { useNavigate } from "react-router-dom";
-import { CommunityContext } from "./CommunityContext";
 import { DeleteContext } from "./DeleteContext";
 
 
 function DeletePopup(){
 
-    const{showDeletePopup, setShowDeletePopup} = useContext(DeleteContext);
+    const{showDeletePopup, setShowDeletePopup, deleteId, setDeleteId, deleted, setDeleted} = useContext(DeleteContext);
     const visibleClass = showDeletePopup ? 'd-block' : 'd-none';
 
-    function deletePost(){
-
+    function deletePost(e){
+        e.preventDefault();
+        axios.post('/comment/delete', {commentId: deleteId}, {withCredentials:true} )
+        .then(()=>{
+            setDeleteId(null);
+            setShowDeletePopup(false);
+            setDeleted(!deleted);
+        });
     }
 
     return(
@@ -36,7 +39,7 @@ function DeletePopup(){
 
                     <button
                         className="btn btn-danger mt-3 rounded-1 pb-2 px-4 fw-bold"
-                        onClick={()=>{deletePost();}}>
+                        onClick={(e)=>{deletePost(e);}}>
                         Delete
                     </button>
                 </div>

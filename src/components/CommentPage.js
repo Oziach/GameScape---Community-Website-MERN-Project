@@ -8,6 +8,7 @@ import RootCommentContext from "./RootCommentContext";
 import UserContext from "./UserContext";
 import SortBar from "./SortBar";
 import PostPopupContext from "./PostPopupContext";
+import { DeleteContext } from "./DeleteContext";
 
 function CommentPage(){
 
@@ -19,6 +20,7 @@ function CommentPage(){
     const [sort, setSort] = useState('new');
     const {username} = useContext(UserContext);
     const {editedPost} = useContext(PostPopupContext);
+    const {deleted: deletedPost} = useContext(DeleteContext);
 
     function refreshComments() {
         axios.get('http://localhost:4000/comments/root/'+commentId+'/?sort='+sort)
@@ -42,7 +44,7 @@ function CommentPage(){
             setComment(response.data);
             refreshComments();
         });
-    },[sort,editedPost])
+    },[sort,editedPost,deletedPost])
 
     useEffect(()=>{
         refreshLikesDislikes();
@@ -60,6 +62,7 @@ function CommentPage(){
                             communityName={comment.community}
                             showCommentAs={true}
                             onSubmit={refreshComments}
+                            type={'reply'}
                         />     
                         <div className="mt-3 mb-0">
 
