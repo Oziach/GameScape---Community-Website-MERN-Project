@@ -6,7 +6,7 @@ import { useContext, useEffect } from "react";
 import { CommunityContext } from "./CommunityContext";
 
 function Community(){
-    const {communityName: communityNameURL} = useParams();
+    const {community: communityNameURL} = useParams();
     const {setCommunityName} = useContext(CommunityContext);
 
     useEffect(()=>{

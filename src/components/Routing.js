@@ -30,9 +30,9 @@ function Routing(){
         {!redirect && (
           <>
           <Routes>    
-            <Route exact path="/community/:communityName" Component={Community}/>
+            <Route exact path="/community/:community" Component={Community}/>
             <Route exact path="/comments/:id" Component={CommentPage}/>
-            <Route exact path="/search/:text" Component={SearchResultsPage}/>
+            <Route exact path="/search/:community/:text" Component={SearchResultsPage}/>
             <Route exact path="/" Component={LandingPage}/>
           </Routes>
           <DeletePopup/>

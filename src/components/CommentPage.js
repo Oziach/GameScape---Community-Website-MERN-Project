@@ -12,7 +12,7 @@ import { DeleteContext } from "./DeleteContext";
 
 function CommentPage(){
 
-    var {id} = useParams(); const commentId = id;
+    var {community, id} = useParams(); const commentId = id;
     const [comment, setComment] = useState({});
     const [comments, setComments] = useState([]);
     const [commentsTotals, setCommentsTotals] = useState(null);

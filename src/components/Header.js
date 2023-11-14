@@ -18,7 +18,7 @@ function Header(){
 
     function doSearch(e) {
         e.preventDefault();
-        setRedirect('/search/'+encodeURIComponent(searchText));
+        setRedirect('/search/'+communityName+'/'+encodeURIComponent(searchText));
     }
 
     return(
