@@ -9,6 +9,7 @@ import RedirectContext from "./RedirectContext";
 import SearchResultsPage from "./SearchResultsPage";
 import CommunityFormPopup from "./CommunityFormPopup";
 import DeletePopup from "./DeletePopup";
+import LandingPage from "./LandingPage";
 
 function Routing(){
 
@@ -32,6 +33,7 @@ function Routing(){
             <Route exact path="/community/:communityName" Component={Community}/>
             <Route exact path="/comments/:id" Component={CommentPage}/>
             <Route exact path="/search/:text" Component={SearchResultsPage}/>
+            <Route exact path="/" Component={LandingPage}/>
           </Routes>
           <DeletePopup/>
         <PostFormPopup/>

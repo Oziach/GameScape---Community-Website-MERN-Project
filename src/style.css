@@ -101,6 +101,18 @@ html, body, #root, #app, #app>div {
     height: 20em;
   }
 
+  .gameCard{
+    height: 18.77em;
+    width:14em
+  }
+
+  .gameCard img{
+    overflow: hidden;
+    min-width:100% !important;
+    max-height: 90% !important;
+  }
+
+
   /* .reactMarkDown {
     padding: 0px !important;
     margin: 0px !important;
