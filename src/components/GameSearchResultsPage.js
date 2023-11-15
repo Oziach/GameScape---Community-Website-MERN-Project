@@ -1,17 +1,18 @@
-import GameCard from "./GameCard";
-import {useContext, useEffect, useState} from "react";
+import { useParams, Link } from "react-router-dom";
+import { useState, useContext, useEffect } from "react";
 import axios from "axios";
-import {CommunityContext} from "./CommunityContext"
-import { Link } from "react-router-dom";
+import { CommunityContext } from "./CommunityContext";
+import GameCard from "./GameCard";
 
-function LandingPage() {
+function GameSearchResultsPage(){
 
+    const {text} = useParams();
     const [communities, setCommunities] = useState([])
     const {setCommunityName} = useContext(CommunityContext);
 
     useEffect(()=>{
         setCommunityName(null);
-        axios.get('/communities')
+        axios.get('/communities?search='+text)
         .then((res)=>{
             setCommunities(res.data);
         })
@@ -19,11 +20,10 @@ function LandingPage() {
 
     return(
         <div>
-      
         {
             communities.map(community=>{
                 return(
-                    <Link to={'/community/'+community.name}>
+                    <Link to={'/community/'+community.name} className="text-decoration-none">
                         <GameCard {...community} />
                     </Link>
 
@@ -33,7 +33,8 @@ function LandingPage() {
         }
         </div>
     )
+    
 
 }
 
-export default LandingPage;
+export default GameSearchResultsPage;

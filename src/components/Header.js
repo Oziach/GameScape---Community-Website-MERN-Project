@@ -1,6 +1,6 @@
 import Avatar from '../avatar.png';
 import AuthScreenContext from './AuthScreenContext';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import UserContext from './UserContext';
 import { Link } from 'react-router-dom';
 import PostPopupContext from "./PostPopupContext";
@@ -18,8 +18,14 @@ function Header(){
 
     function doSearch(e) {
         e.preventDefault();
-        setRedirect('/search/'+communityName+'/'+encodeURIComponent(searchText));
+        communityName 
+        ? setRedirect('/search/'+communityName+'/'+encodeURIComponent(searchText))
+        : setRedirect('search/'+encodeURIComponent(searchText));
     }
+
+    useEffect(()=>{
+        setSearchText('')
+    },[communityName])
 
     return(
         <header className='position-sticky sticky-top w-100'>

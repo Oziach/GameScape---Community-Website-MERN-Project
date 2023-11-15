@@ -7,7 +7,7 @@ function GameCard(props) {
             <img src={props.cardImage}
                 className="rounded-2"/>
 
-            <div className="text-center fw-bold">
+            <div className="text-center fw-bold text-light">
                 {props.title}
             </div>
         </div>
