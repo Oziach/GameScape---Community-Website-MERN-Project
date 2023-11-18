@@ -24,9 +24,10 @@ function AuthScreen(){
     function register(e) {
         e.preventDefault();
         const data = {email,username,password};
-        axios.post('http://localhost:4000/register',data, {withCredentials:true})
-        .then(()=>{
-            user.setUser({username})
+        axios.post('http://localhost:4000/register',data)
+        .then((res)=>{
+            user.setUser({username});
+            window.sessionStorage.token=res.data.token;
             setEmail('');
             setPassword('');
             setUsername('');
@@ -36,10 +37,11 @@ function AuthScreen(){
 
     function login(){
         const data = {username, password};
-        axios.post('http://localhost:4000/login',data, {withCredentials:true})
+        axios.post('http://localhost:4000/login',data)
         .then((res)=>{
             authContext.setShow(false);
             user.setUser(res.data);
+            window.sessionStorage.token = res.data.token;
             setIncorrectLogin(false);
         })
         .catch(()=>{

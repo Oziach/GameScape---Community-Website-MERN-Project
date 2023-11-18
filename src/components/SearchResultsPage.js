@@ -6,6 +6,7 @@ import RootCommentContext from "./RootCommentContext";
 import {CommunityContext } from "./CommunityContext";
 import { DeleteContext } from "./DeleteContext";
 import PostPopupContext from "./PostPopupContext";
+import UserContext from "./UserContext";
 
 function SearchResultsPage(){
     const {community, text} = useParams();
@@ -17,7 +18,7 @@ function SearchResultsPage(){
     const {name:CommunityContextName, setCommunityName} = useContext(CommunityContext);
 
     useEffect(()=>{
-        axios.get('/comments?search='+text+'&community='+community, {withCredentials:true})
+        axios.get('/comments?search='+text+'&community='+community)
         .then(response=>{
           if(!CommunityContextName){setCommunityName(community)} //this is extremely jank
           setComments(response.data)
@@ -30,8 +31,8 @@ function SearchResultsPage(){
 
 
     function refreshLikesDislikes() {
-      const commentsIds = [...comments];
-      axios.post('/likesdislikes', {commentsIds}, {withCredentials:true})
+      const data = {commentsIds:[...comments], token: window.sessionStorage.token};
+      axios.post('/likesdislikes', data)
       .then(res =>{
           setCommentsTotals(res.data.commentsTotals);
           setUserLikesDislikes(res.data.userLikesDislikes);

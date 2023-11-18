@@ -2,6 +2,7 @@ import axios from "axios";
 import { useContext } from "react";
 import RootCommentContext from "./RootCommentContext";
 import AuthScreenContext from "./AuthScreenContext";
+import UserContext from "./UserContext";
 
 function LikesDislikes(props){
 
@@ -9,7 +10,7 @@ function LikesDislikes(props){
     const authContext = useContext(AuthScreenContext);
 
     function sendLikeDislike(which) {
-        axios.get('/likedislike/'+props.commentId+'/'+which, {withCredentials:true})
+        axios.post('/likedislike/'+props.commentId+'/'+which, {token:window.sessionStorage.token})
         .then((res)=>{ 
             rootCommentInfo.refreshLikesDislikes();
         })

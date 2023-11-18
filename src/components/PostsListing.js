@@ -28,15 +28,15 @@ function PostsListing(){
     },[comments,username])
 
     function refreshListingComments(){
-      axios.get('/comments?sort='+sort+'&community='+community, {withCredentials:true})
+      axios.get('/comments?sort='+sort+'&community='+community)
         .then(response=>{
           setComments(response.data)
         });
     }
 
     function refreshLikesDislikes() {
-      const commentsIds = [...comments];
-      axios.post('/likesdislikes', {commentsIds}, {withCredentials:true})
+      const data = {commentsIds:[...comments], token: window.sessionStorage.token}
+      axios.post('/likesdislikes', data)
       .then(res =>{ 
           setCommentsTotals(res.data.commentsTotals);
           setUserLikesDislikes(res.data.userLikesDislikes);

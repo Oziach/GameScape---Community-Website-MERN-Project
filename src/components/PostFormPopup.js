@@ -4,6 +4,7 @@ import axios from "axios";
 import AuthScreenContext from "./AuthScreenContext";
 import { useNavigate } from "react-router-dom";
 import { CommunityContext } from "./CommunityContext";
+import UserContext from "./UserContext";
 
 function PostFormPopup(){
 
@@ -16,13 +17,14 @@ function PostFormPopup(){
     const visibleClass = postPopupContext.show ? 'd-block' : 'd-none'
     const navigate = useNavigate();
     const {name:communityName} = useContext(CommunityContext);
+    const {token} = useContext(UserContext);
     
     function createPost() {
 
     if(postPopupContext.show === 'create'){
 
-        const data = {title,body,communityName};
-        axios.post('/comments', data, {withCredentials:true})
+        const data = {title,body,communityName, token: window.sessionStorage.token};
+        axios.post('/comments', data)
         .then(response => {
             postPopupContext.setShow(false);
             setNewPostId(response.data._id);
@@ -35,8 +37,8 @@ function PostFormPopup(){
     }
 
     else if(postPopupContext.show === 'edit'){
-        const data = {commentId: postPopupContext.popupComment._id, title, body};
-        axios.post('/comments/edit', data, {withCredentials:true})
+        const data = {commentId: postPopupContext.popupComment._id, title, body, token:window.sessionStorage.token};
+        axios.post('/comments/edit', data)
         .then(response=>{
             setTitle('');
             setBody('');

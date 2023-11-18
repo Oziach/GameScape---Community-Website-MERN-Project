@@ -2,20 +2,25 @@
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { DeleteContext } from "./DeleteContext";
-
+import UserContext from "./UserContext";
+import RedirectContext from "./RedirectContext";
+import { CommunityContext } from "./CommunityContext";
 
 function DeletePopup(){
 
     const{showDeletePopup, setShowDeletePopup, deleteId, setDeleteId, deleted, setDeleted} = useContext(DeleteContext);
     const visibleClass = showDeletePopup ? 'd-block' : 'd-none';
+    const {setRedirect} = useContext(RedirectContext);
+    const {name} = useContext(CommunityContext);
 
     function deletePost(e){
         e.preventDefault();
-        axios.post('/comment/delete', {commentId: deleteId}, {withCredentials:true} )
+        axios.post('/comment/delete', {commentId: deleteId, token: window.sessionStorage.token})
         .then(()=>{
             setDeleteId(null);
             setShowDeletePopup(false);
             setDeleted(!deleted);
+            if(showDeletePopup === 'open') {setRedirect('/community/'+name);}
         });
     }
 

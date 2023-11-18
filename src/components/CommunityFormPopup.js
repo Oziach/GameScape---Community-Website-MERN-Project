@@ -4,6 +4,7 @@ import { CommunityContext } from "./CommunityContext"
 import AuthScreenContext from "./AuthScreenContext";
 import axios from "axios";
 import RedirectContext from "./RedirectContext";
+import UserContext from "./UserContext";
 
 function CommunityFormPopup(){
     
@@ -14,14 +15,13 @@ function CommunityFormPopup(){
     const [iconImage, setIconImage] = useState('');
     const {show, setShow} = useContext(CommunityContext);
 
-
     if(!show){
         return null;
     }
 
     function createCommunity(){
-        const data = {name, title, iconImage, cardImage};
-        axios.post('/communities/', data, {withCredentials:true})
+        const data = {name, title, iconImage, cardImage, token:window.sessionStorage.token};
+        axios.post('/communities/', data)
         .then(() =>{
             setRedirect('/community/'+name);
             setShow(false);

@@ -27,16 +27,23 @@ function App() {
   const [redirect, setRedirect] = useState(false);
 
   useEffect(()=>{
-    axios.get('/user', {withCredentials:true})
-    .then((response)=>{
-      setUser(response.data)
-    })
-    .catch((err)=>console.log());
+ 
+
+    if(window.sessionStorage.token){
+      axios.post('/user', {token: window.sessionStorage.token})
+      .then((response)=>{
+        setUser(response.data)
+      })
+      .catch((err)=>console.log());
+    }
+    else{
+      setUser({});
+    }
   },[])
 
   function logout(){
-    axios.post('/logout',{},{withCredentials:true})
-    .then(()=>setUser({}));
+      setUser({});
+      window.sessionStorage.removeItem("token");
   }
 
   return (

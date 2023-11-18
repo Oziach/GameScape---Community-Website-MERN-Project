@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import UserContext from './UserContext';
 import axios from "axios";
 import { CommunityContext } from "./CommunityContext";
+import AuthScreenContext from "./AuthScreenContext";
 
 
 function CommentForm(props){
@@ -10,6 +11,7 @@ function CommentForm(props){
     const [commentBody, setCommentBody] = useState('');
     const[type, setType] = useState('')
     const submitText = type === 'edit' ? 'Edit' : 'Comment';
+    const {show, setShow} = useContext(AuthScreenContext);
 
     if(props.type !== type){
         if(props.type === 'edit') {setCommentBody(props.comment.body); setType(props.type);}
@@ -21,18 +23,23 @@ function CommentForm(props){
         e.preventDefault(); 
 
         if(props.type==='reply'){
-            const data = {body:commentBody, parentId:props.parentId, rootId:props.rootId, communityName:props.communityName}
-            axios.post('/comments', data, {withCredentials:true})
+            const data = {body:commentBody, parentId:props.parentId, rootId:props.rootId, communityName:props.communityName, token:window.sessionStorage.token}
+            axios.post('/comments', data)
             .then((res)=>{
                 setCommentBody('');
                 if(!!props.onSubmit){
                     props.onSubmit();
                 }
             })
+            .catch((err) => {
+                if(err.response.status === 401){
+                    setShow('login');
+                }
+            })
         }
         else if(props.type==='edit'){
-            const data = {commentId:props.comment._id, title:props.comment.title, body:commentBody,}
-            axios.post('/comments/edit', data, {withCredentials:true})
+            const data = {commentId:props.comment._id, title:props.comment.title, body:commentBody, token: window.sessionStorage.token}
+            axios.post('/comments/edit', data)
             .then(res=>{
                 setCommentBody('');
                 if(!!props.onSubmit){

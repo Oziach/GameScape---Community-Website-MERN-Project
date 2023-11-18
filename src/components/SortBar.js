@@ -16,7 +16,7 @@ function SortBar(props){
                 <button className={"likeButton text-secondary fw-bold border px-3 border-secondary py-1 smallishText rounded-4 px-2 mb-3 ms-2 hoverDanger" + (props.sort === 'likes' && (sortButtonClass))}
                    onClick={()=>{props.setSort('likes')}}>
                     Likes
-                </button>
+                </button> 
             </div>
     )
 }
