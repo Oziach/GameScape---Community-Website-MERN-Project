@@ -31,9 +31,6 @@ function PostFormPopup(){
         })
         .catch(error => {
             if(!error) {console.log("Request not sent");}
-            if (error.response.status === 401) {
-            authContext.setShow('login');
-            }
         });
     }
 

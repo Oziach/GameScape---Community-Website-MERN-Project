@@ -31,7 +31,7 @@ function SearchResultsPage(){
 
     function refreshLikesDislikes() {
       const commentsIds = [...comments];
-      axios.post('http://localhost:4000/likesdislikes', {commentsIds}, {withCredentials:true})
+      axios.post('/likesdislikes', {commentsIds}, {withCredentials:true})
       .then(res =>{
           setCommentsTotals(res.data.commentsTotals);
           setUserLikesDislikes(res.data.userLikesDislikes);

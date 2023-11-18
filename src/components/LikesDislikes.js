@@ -9,7 +9,7 @@ function LikesDislikes(props){
     const authContext = useContext(AuthScreenContext);
 
     function sendLikeDislike(which) {
-        axios.get('http://localhost:4000/likedislike/'+props.commentId+'/'+which, {withCredentials:true})
+        axios.get('/likedislike/'+props.commentId+'/'+which, {withCredentials:true})
         .then((res)=>{ 
             rootCommentInfo.refreshLikesDislikes();
         })
