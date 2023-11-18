@@ -26,6 +26,9 @@ function CommunityFormPopup(){
             setRedirect('/community/'+name);
             setShow(false);
         })
+        .catch((err)=>{
+            console.log(err);
+        })
     }
     
     return(
@@ -33,7 +36,7 @@ function CommunityFormPopup(){
             className={"row position-fixed position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center z-2"} 
             style={{backgroundColor: 'rgba(0,0,0,0.8)'}} //faded background 
         >   
-            <form className="col-lg-4 col-md-6 col-10 text-light bgBlack border border-2 border-warning mx-auto p-4 rounded-2">
+            <div className="col-lg-4 col-md-6 col-10 text-light bgBlack border border-2 border-warning mx-auto p-4 rounded-2">
                 
                 <h4 className="text-light mb-4">Create a new community</h4>
                 <input 
@@ -62,7 +65,7 @@ function CommunityFormPopup(){
                     onChange={(e)=>setCardImage(e.target.value)}
                 />
 
-<input 
+                <input 
                     type='text' 
                     className="d-block text-light bgLightGray rounded-1 border-1 border-secondary w-100 px-2 py-1 mb-3"
                     placeholder="Community icon url"
@@ -85,7 +88,7 @@ function CommunityFormPopup(){
                     </button>
                 </div>
                 
-            </form>
+            </div>
         </div>
     )
 }

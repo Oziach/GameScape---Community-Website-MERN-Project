@@ -91,7 +91,7 @@ function Header(){
                         {communityName &&(
                              <button 
                              className="btn btn-sm btn-outline-light rounded-1 mx-2"
-                             onClick={()=>postPopupContext.setShow(true)}
+                             onClick={()=>postPopupContext.setShow('create')}
                              >
                              Create Post
                          </button>

@@ -15,7 +15,7 @@ import RedirectContext from './components/RedirectContext';
 import { CommunityContextProvider } from './components/CommunityContext';
 import { DeleteContextProvider } from './components/DeleteContext';
 
-axios.defaults.baseURL = 'https://gamescape-backend.onrender.com'
+axios.defaults.baseURL = 'http://localhost:4000'
 
 function App() {
 
