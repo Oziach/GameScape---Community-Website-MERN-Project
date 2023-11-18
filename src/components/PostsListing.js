@@ -25,7 +25,7 @@ function PostsListing(){
    
     useEffect(()=>{
       refreshLikesDislikes();
-    },[comments,username, community, sort])
+    },[comments])
 
     function refreshListingComments(){
       axios.get('/comments?sort='+sort+'&community='+community)
@@ -35,13 +35,15 @@ function PostsListing(){
     }
 
     function refreshLikesDislikes() {
-      const data = {commentsIds:[...comments], token: window.sessionStorage.token}
+      const data = {commentsIds: comments._id, token: window.sessionStorage.token}
       axios.post('/likesdislikes', data)
       .then(res =>{ 
           setCommentsTotals(res.data.commentsTotals);
           setUserLikesDislikes(res.data.userLikesDislikes);
       })
     }
+
+    console.log(comments);
 
     return(  
         
