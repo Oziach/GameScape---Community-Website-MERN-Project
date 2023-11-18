@@ -24,7 +24,7 @@ function AuthScreen(){
     function register(e) {
         e.preventDefault();
         const data = {email,username,password};
-        axios.post('http://localhost:4000/register',data)
+        axios.post('/register',data)
         .then((res)=>{
             user.setUser({username});
             window.sessionStorage.token=res.data.token;
@@ -37,7 +37,7 @@ function AuthScreen(){
 
     function login(){
         const data = {username, password};
-        axios.post('http://localhost:4000/login',data)
+        axios.post('/login',data)
         .then((res)=>{
             authContext.setShow(false);
             user.setUser(res.data);

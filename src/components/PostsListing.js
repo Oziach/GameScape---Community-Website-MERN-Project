@@ -21,11 +21,11 @@ function PostsListing(){
 
     useEffect(()=>{
         refreshListingComments();
-      },[sort,community,editedPost,deletedPost]);
+      },[sort,community,editedPost,deletedPost, ]);
    
     useEffect(()=>{
       refreshLikesDislikes();
-    },[comments,username])
+    },[comments,username, community, sort])
 
     function refreshListingComments(){
       axios.get('/comments?sort='+sort+'&community='+community)

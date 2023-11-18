@@ -21,10 +21,10 @@ function CommentPage(){
     const {username} = useContext(UserContext);
     const {editedPost} = useContext(PostPopupContext);
     const {deleted: deletedPost} = useContext(DeleteContext);
-    const {token} = useContext(UserContext);
+
 
     function refreshComments() {
-        axios.get('http://localhost:4000/comments/root/'+commentId+'/?sort='+sort)
+        axios.get('/comments/root/'+commentId+'/?sort='+sort)
         .then((res)=>{
             setComments(res.data);
         })
@@ -32,7 +32,7 @@ function CommentPage(){
 
     function refreshLikesDislikes() {
         const data = {commentsIds:[comment._id, ...comments],token:window.sessionStorage.token}
-        axios.post('http://localhost:4000/likesdislikes', data)
+        axios.post('/likesdislikes', data)
         .then(res =>{
             setCommentsTotals(res.data.commentsTotals);
             setUserLikesDislikes(res.data.userLikesDislikes);
@@ -40,7 +40,7 @@ function CommentPage(){
     }
 
     useEffect(()=>{
-        axios.get('http://localhost:4000/comments/'+commentId)
+        axios.get('/comments/'+commentId)
         .then(response => {
             setComment(response.data);
             refreshComments();
