@@ -30,12 +30,12 @@ function PostsListing(){
     function refreshListingComments(){
       axios.get('/comments?sort='+sort+'&community='+community)
         .then(response=>{
-          setComments(response.data)
+          setComments(response.data);
         });
     }
 
     function refreshLikesDislikes() {
-      const data = {commentsIds: comments._id, token: window.sessionStorage.token}
+      const data = {commentsIds: comments, token: window.sessionStorage.token}
       axios.post('/likesdislikes', data)
       .then(res =>{ 
           setCommentsTotals(res.data.commentsTotals);
